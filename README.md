@@ -1,112 +1,95 @@
 # cursor-companion
 
-A framework for structuring and optimizing AI-assisted development with Cursor IDE. Provides a standardized approach for managing LLM coding assistant interactions through organized instruction sets and global rules.
+A framework for structuring AI-assisted development with Cursor IDE. Provides standardized scaffolding and guidelines for managing LLM coding assistant interactions.
 
 ## Overview
 
-This framework helps developers effectively communicate with Cursor's AI coding assistant by:
-- Maintaining global coding standards via `.cursorrules`
-- Organizing context-specific instructions that mirror your codebase structure
-- Enabling precise, location-aware AI assistance
+Cursor Companion helps developers effectively communicate with Cursor's AI coding assistant by providing:
 
-## Core Concepts
+- Global coding standards via `.cursorrules`
+- Framework for maintaining module/feature-specific context
+- Guidelines for AI-assisted code changes 
+- Structure for documenting design decisions and technical context
 
-### Global Rules (`.cursorrules`)
-Located at the root of your project, this file defines project-wide standards and practices. It's automatically included in every interaction with the AI assistant.
+## Installation
 
-### Instruction Files
-All module-specific instructions are centralized in a single directory, with filenames that mirror your codebase structure:
+Create a new project:
+```bash
+npx create-cursor-companion --new
+```
+
+Add to existing project:
+```bash
+# Run from project root
+npx create-cursor-companion
+```
+
+## Project Structure
+
+After initialization, your project will have:
 
 ```
 your-project/
-├── .cursorrules
-└── .cursor/
-    └── instructions/
-        ├── core_api.md              # @core/api/**
-        ├── core_models_user.md      # @core/models/user/**
-        ├── core_models_order.md     # @core/models/order/**
-        ├── services_payment.md      # @services/payment/**
-        └── utils_validation.md      # @utils/validation/**
+├── .cursorrules                 # Global rules for the AI assistant
+└── instructions/                # Module-specific context files
+      └── composer.md              # Instructions for the composer specifically
+      └── README.md                # Guide for creating context files 
 ```
 
-## Setup
+## Using with Cursor IDE
 
-1. Create `.cursorrules` in your project root
-2. Create `.cursor/instructions/` directory
-3. Add instruction files following the naming pattern: `{path_to_code_separated_by_underscore}.md`
-
-## Usage with Cursor IDE
-
-When working with the AI assistant:
+### Single-File Changes
 1. Select code and press `Ctrl+K`
-2. Reference relevant instruction files using `@`:
-   ```
-   @core_api.md Please update this endpoint to include pagination
-   ```
+2. Reference relevant context files using `@`:
+```
+@services_auth.md Update the token validation logic
+```
+
+### Multi-File Changes
+When making broader changes, include multiple context files. The composer will use the instructions in `composer.md` to guide the update process:
+```
+@composer.md @services_auth.md @models_user.md Add support for OAuth provider
+```
+
+## Context Files
+
+Create context files in `/instructions/` with names that mirror your codebase structure:
+
+```
+project/
+├── src/
+│   ├── services/
+│   │   └── auth/          # @services_auth.md
+│   ├── models/
+│   │   └── user/          # @models_user.md
+│   └── api/
+│       └── users/         # @api_users.md
+└── instructions/
+        ├── services_auth.md      # Instructions for @services/auth/**
+        ├── models_user.md        # Instructions for @models/user/**
+        └── api_users.md          # Instructions for @api/users/**
+```
+
+The filename should reflect the path where the instructions apply, using underscores to separate directory levels:
+- `path/to/module/**` → `path_to_module.md`
+
+Each file should include:
+- Clear scope definition (`@path/to/module/**`)
+- Module/feature purpose
+- Design decisions
+- Technical constraints
+- Integration points
+- Domain rules
+
+See the [examples](/examples) directory for sample context files.
 
 ## Best Practices
 
-### File Naming
-- Name instruction files to mirror your codebase structure
-- Use underscores to separate directory levels
-- Keep names descriptive but concise
-
-Example:
-```
-Codebase Location     -> Instruction Filename
-src/core/api/         -> core_api.md
-src/services/auth/    -> services_auth.md
-src/utils/formatting/ -> utils_formatting.md
-```
-
-### File Organization
-- Keep one instruction file per major module/functionality
-- Begin each file with its scope:
-  ```markdown
-  # Core API Instructions
-  **Applies to:** @core/api/**
-  ```
-
-### Using Instructions
-- Include relevant instruction files when making module-specific changes
-- Multiple instructions can be referenced in a single command:
-  ```
-  @core_api.md @utils_validation.md Please update the validation logic
-  ```
-
-## Implementation Guide
-
-1. **Initial Setup**
-   ```bash
-   mkdir -p .cursor/instructions
-   touch .cursorrules
-   ```
-
-2. **Create Instruction Files**
-   - Name files based on their corresponding code location
-   - Include scope and purpose at the top of each file
-   - Add specific guidelines, patterns, and requirements
-
-3. **Maintain and Update**
-   - Keep instructions current with codebase changes
-   - Update paths if code structure changes
-   - Regularly review and refine guidelines
-
-## Directory Structure
-
-```
-your-project/
-├── .cursorrules                       # Global rules
-├── .cursor/
-│   └── instructions/                  # Centralized instructions
-│       └── {module_path}.md          # Module-specific guidelines
-├── src/
-│   ├── core/
-│   │   ├── api/
-│   │   └── models/
-│   └── services/
-└── ...
-```
+- Name context files to mirror your codebase structure
+- Keep context files focused on their specific scope
+- Update context when making significant changes
+- Include only information that impacts development
+- Reference related files when needed
 
 ## Contributing
 

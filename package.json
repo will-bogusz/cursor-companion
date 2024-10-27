@@ -1,0 +1,34 @@
+{
+    "name": "create-cursor-companion",
+    "version": "1.0.0",
+    "description": "Initialize projects with Cursor Companion framework for AI-assisted development",
+    "main": "bin/cli.js",
+    "bin": {
+      "create-cursor-companion": "bin/cli.js"
+    },
+    "type": "module",
+    "files": [
+      "bin/",
+      "agent-instructions/",
+      "examples/"
+    ],
+    "keywords": [
+      "cursor",
+      "ai",
+      "development",
+      "coding",
+      "assistant",
+      "framework"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+      "chalk": "^5.0.0",
+      "inquirer": "^9.0.0",
+      "fs-extra": "^11.0.0",
+      "execa": "^8.0.1"
+    },
+    "engines": {
+      "node": ">=14.16"
+    }
+  }
