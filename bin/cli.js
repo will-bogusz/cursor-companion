@@ -39,13 +39,13 @@ async function setupCursorCompanion(projectPath) {
   // Copy composer.md to instructions directory
   await fs.copy(
     path.join(__dirname, '../agent-instructions/composer.md'),
-    path.join(projectPath, '.cursor/instructions/composer.md')
+    path.join(projectPath, 'instructions/composer.md')
   );
 
   // Copy README from agent-instructions
   await fs.copy(
     path.join(__dirname, '../agent-instructions/README.md'),
-    path.join(projectPath, '.cursor/README.md')
+    path.join(projectPath, 'instructions/README.md')
   );
 
   // Add to .gitignore
