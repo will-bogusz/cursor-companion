@@ -2,6 +2,8 @@
 
 A framework for structuring AI-assisted development with Cursor IDE. Provides standardized scaffolding and guidelines for managing LLM coding assistant interactions.
 
+**Note:** Cursor IDE now officially includes functionality similar to Cursor Companion through project and IDE level instruction files. While this repository provides alternative structures and additional customization options, consider exploring Cursor IDE's built-in features for a more native integration.
+
 ## Overview
 
 Cursor Companion helps developers effectively communicate with Cursor's AI coding assistant by providing:
